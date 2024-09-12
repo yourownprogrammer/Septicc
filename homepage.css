@@ -1,0 +1,66 @@
+.main
+{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'poppins', sans-serif;
+    box-sizing: border-box;
+
+}
+    .container{
+
+        width: 90%;
+        min-height: 100vh;
+        background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0) ),url('https://www.uffizio.com/wp-content/uploads/2022/08/tracking-and-managing-water-tanker-vehicles-banner.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 10px 8%;
+    }
+    nav{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+
+    }
+    .logo{
+        width: 180px;
+        cursor: pointer;
+    }
+
+    nav ul{
+        list-style: none;
+        width: 100%;
+        text-align: right;
+        padding-right: 60px;
+    }
+
+    nav ul li{
+        display: inline-block;
+        margin: 10px 20px;
+
+    }
+    nav ul li a{
+        color: blue;
+    text-decoration: none;
+        
+    }
+    .btn{
+       
+        display:flex;
+        align-items: center;
+        padding: 4px 2px;
+        border: 0;
+        outline: 0;
+        border-radius: 5px;
+        background: green;
+        color:#fff;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .btn img{
+        width: 10px;
+        margin-right:5px;
+    }
+
+   

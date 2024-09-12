@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 50px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 300px; /* Increased width */
+    width: 100%;
+    padding: 40px; /* Increased padding */
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.form-group {
+    margin-bottom: 20px; /* Adjusted spacing */
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px; /* Increased font size */
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px; /* Increased padding */
+    margin-top: 1px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px; /* Increased font size */
+    transition: all 0.3s ease;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px; /* Increased padding */
+    background-color: #126a10;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px; /* Increased font size */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+input[type="submit"]:active {
+    background-color: #003f7f;
+}
+
+.container h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 28px; /* Increased font size */
+    color: #333;
+}
+
+.error{
+    color: red;
+}
+
