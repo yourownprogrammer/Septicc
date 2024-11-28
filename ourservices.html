@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our services</title>
+    <style>
+
+        body, html {
+            margin: 0;
+        }
+
+        .header {
+            height: 100%;
+            width: 100%;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .header nav img {
+            max-width: 150px; /* Reduced logo size */
+            height: auto;
+            
+        }
+
+        .services {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .services-col {
+            flex-basis: 31%;
+            border-radius: 10px;
+            margin-bottom: 5%;
+            text-align: left;
+        }
+
+        .services-col img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .services-col p {
+            padding: 0;
+        }
+
+        .services-col h3 {
+            margin-top: 16px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="header">
+        <nav>
+            <a href="index.php"><img src="images/Septic-logo.png" alt="Septic Logo"></a>
+        </nav>
+    </section>
+
+    <section class="services">
+        <h1>Our Services</h1>
+        <p>We provide reliable septic tank emptying, expert maintenance, and eco-friendly septage for agricultural use. Our services help keep your septic system running smoothly and support sustainable farming practices.</p>
+
+        <div class="row">
+            <div class="services-col">
+                <img src="images/emptying.jpg" alt="Septic Tank Emptying">
+                <h3>Septic Tank Emptying</h3>
+                <p>We provide professional septic tank emptying services, safely removing sludge and waste to keep your system functioning properly. Regular pumping helps prevent blockages and costly repairs, ensuring your septic system runs smoothly.</p>
+            </div>
+            <div class="services-col">
+                <img src="images/maintainance.jpg" alt="Septic Tank Maintenance">
+                <h3>Septic Tank Maintenance</h3>
+                <p>We ensure your system stays in top condition. We offer regular inspections, pumping, and cleaning to prevent blockages, odors, and costly repairs. Timely maintenance helps extend the life of your septic system and ensures it operates efficiently.</p>
+            </div>
+            <div class="services-col">
+                <img src="images/septage.jpg" alt="Septage for Agricultural Land">
+                <h3>Septage for Agricultural Land</h3>
+                <p>We offer safe and regulated septage disposal for agricultural land, using treated waste as fertilizer to enrich soil with nutrients while ensuring environmental safety and compliance with local regulations.</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

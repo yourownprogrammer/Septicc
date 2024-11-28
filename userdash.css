@@ -1,0 +1,116 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    background-color: darkolivegreen;
+    color: white;
+    height: 10vh; /* Only takes up 10% of the viewport height */
+    padding: 20; /* Remove unnecessary padding */
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Vertically center the content */
+    justify-content: center; /* Horizontally center the content */
+    font-size: 18px; /* Reduce font size if necessary */
+}
+.ram{
+    font-size: 36px;
+    position: relative;
+    left: 15px;
+    color: rgb(205, 237, 26);
+    font-style: italic;
+}
+
+
+  
+  .dashboard-container {
+    display: grid;
+    grid-template-columns: 30% 70%; /* Sidebar (30%) + Main Content (70%) */
+    gap: 30px;
+    padding: 20px;
+  }
+  
+  /* Sidebar for user info */
+  .sidebar {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  .sidebar h2 {
+    color: #333;
+    font-size: 34px;
+    margin-bottom: 15px;
+  }
+  .sidebar .section {
+    margin-bottom: 10px;
+  }
+  .sidebar .section h3 {
+    font-size: 22px;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  .sidebar .section p {
+    font-size: 18px;
+    color: #666;
+  }
+  .sidebar .section .label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Main Content Area */
+  .main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns for cards */
+    gap: 20px; /* Space between cards */
+    background-color: white;
+    padding: 20px;
+    border-radius: 6px;
+  }
+  .main-content h2 {
+    color: #333;
+    font-size: 22px;
+  }
+  .card {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    height: 225px;
+  }
+  #card{
+    position: relative;
+    left: 20px;
+    width: 455px;
+  }
+  .main-content .card p {
+    font-size: 18px;
+    color: #444;
+    margin: 10px 0;
+  }
+  
+  a {
+    font-size: 16px;
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    display: inline-block;
+    margin: 5px 0;
+    border-radius: 4px;
+  }
+  
+  p a {
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    background-color: #f44336;
+    padding: 2% 20%;
+    text-align: center;
+    margin-top: 100px;
+  }
+  h3 a {
+    margin-left: 100px;
+  }
+  

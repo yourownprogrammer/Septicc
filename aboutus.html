@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            
+        }
+
+        .header {
+            height: 100%;
+            width: 100%;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url('images/this.jpg');
+            color: white;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        nav {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .content h4, .content p {
+            margin: 0;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="index.php"><img src="images/Septic-logo.png" alt="Septic Logo"></a>
+        </nav>
+        <div class="content">
+            <h4>About us</h4>
+            <p>We offer fast, reliable septic tank delivery services. Our experienced team ensures safe and timely delivery of septic tanks to your location, meeting your needs with professionalism and care.</p>
+        </div>
+    </section>
+</body>
+</html>

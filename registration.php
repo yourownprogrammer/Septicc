@@ -1,89 +1,178 @@
+<?php
+session_start();
+$emailErr = "";
+
+if (isset($_POST["submit"])) {
+    $fullname = $_POST["fullname"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $passwordRepeat = $_POST["repeat_password"];
+
+    if ($password !== $passwordRepeat) {
+        $error = "Passwords do not match!";
+    } else {
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT); // Encrypt password
+
+        require_once "database.php";
+
+        // Check if the email already exists
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $emailErr = "Email already exists!";
+        } else {
+            // Insert new user
+            $sql = "INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            if ($stmt) {
+                $stmt->bind_param("sss", $fullname, $email, $passwordHash);
+                if ($stmt->execute()) {
+                    header("Location: login.php"); // Redirect to login
+                    exit();
+                } else {
+                    $error = "Error: Could not register user.";
+                }
+            } else {
+                $error = "Error: Failed to prepare the query.";
+            }
+        }
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration form</title>
+    <title>Registration Form</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="container">
-        <?php
-        if(isset($_POST["submit"])){
-            $fullname = $_POST["fullname"];
-            $email = $_POST["email"];
-            $password = $_POST["password"];
-            $passwordRepeat = $_POST["repeat_password"];
-            
-            $passwordHash = password_hash($password, PASSWORD_DEFAULT); // encryption of password
-            $errors = array();
+<div class="container">
+    <form action="" method="post" onsubmit="return validateForm()" novalidate>
+        <div class="form-group">
+            <input type="text" name="fullname" id="fullname" placeholder="Enter full name">
+            <span class="error" id="regNameErr" style="color: red;"></span>
+        </div>
+        <div class="form-group">
+            <input type="text" name="email" id="email" placeholder="Enter email">
+            <span class="error" id="emailErr" style="color: red;"></span>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" id="password" placeholder="Enter password">
+            <span class="error" id="regPasswordErr" style="color: red;"></span>
+        </div>
+        <div class="form-group">
+            <input type="password" name="repeat_password" id="repeat_password" placeholder="Confirm password">
+            <span class="error" id="confirmPasswordErr" style="color: red;"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Register" name="submit">
+        </div>
+    </form>
+    <div>
+        <p>Already Registered? <a href="login.php">Login here</a></p>
+    </div>
+</div>
 
-            if (empty($fullname)) {
-                array_push($errors, "Full name is required");
-            } elseif (!preg_match("/\s/", $fullname)) {
-                array_push($errors, "Full name must include both first and last name<br>");
-            }
+<script>
+    function validateForm() {
+        const regName = document.getElementById("fullname").value.trim();
+        const regEmail = document.getElementById("email").value.trim();
+        const regPassword = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("repeat_password").value;
 
-            if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-                array_push($errors,"Email not valid, must be in the form <i>abc12@example.com</i>");
-            }
+        const errors = [];
 
-            if(strlen($password) < 8){
-                array_push($errors, "Password must be at least 8 characters long<br>");
-            } 
-            if($password!==$passwordRepeat){
-                array_push($errors,"Password doesn't match<br>");
-            }
-            require_once "database.php";
-            $sql= "SELECT * FROM users WHERE email = '$email'";
-            $result = mysqli_query($conn, $sql);
-            $rowCount = mysqli_num_rows($result);
-            if($rowCount>0){
-                array_push($errors, "Email already exists!");
-            }
-            if(count($errors) > 0){
-                foreach ($errors as $error){
-                    echo "$error";
-                }
-            } else {
-                
-               $sql = "INSERT INTO users (full_name, email, password) VALUES ( ?, ?, ?)";
-               $stmt = mysqli_stmt_init($conn);
-               $prepareStmt = mysqli_stmt_prepare($stmt,$sql);
-               if($prepareStmt){
-                mysqli_stmt_bind_param($stmt,"sss",$fullname, $email, $passwordHash);
-                mysqli_stmt_execute($stmt);
-                echo"you are registered successfully";
-               }
-               else{
-                die("something went wrong");
-               }
+        // Reset error messages
+        document.getElementById("regNameErr").innerText = "";
+        document.getElementById("emailErr").innerText = "";
+        document.getElementById("regPasswordErr").innerText = "";
+        document.getElementById("confirmPasswordErr").innerText = "";
+
+        // Validate Full Name
+       
+        if (regName.trim() === "") {
+    errors.push({ id: "regNameErr", msg: "Full name is required" });
+} else {
+    // Normalize spaces (convert multiple spaces to a single space)
+    regName = regName.replace(/\s+/g, " ").trim();
+    const nameFormat = /^[a-zA-Z\s]+$/;
+
+    // Validate name format (only letters and spaces)
+    if (!nameFormat.test(regName)) {
+        errors.push({ id: "regNameErr", msg: "Enter a valid name" });
+    } 
+    // Check length after normalization
+    else if (regName.length < 5) {
+        errors.push({ id: "regNameErr", msg: "Full name must be at least 5 characters long" });
+    }
+}
+
+
+        // Validate Email
+        if (regEmail === "") {
+            errors.push({ id: "emailErr", msg: "Email is required" });
+        } else {
+            const mailFormat = /^[a-zA-Z][a-zA-Z0-9]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
+            if (/\s/.test(regEmail)) {
+                errors.push({ id: "emailErr", msg: "Email must not contain spaces" });
+            } else if (!mailFormat.test(regEmail)) {
+                errors.push({ id: "emailErr", msg: "Enter a valid email" });
             }
         }
-        ?>
-        <form action="registration.php" method="post">
-            <div class="form-group">
-                <input type="text" name="fullname" placeholder="Enter full name" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Enter email" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Enter password" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="repeat_password" placeholder="Confirm password" required>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Register" name="submit">
-            </div>
-        </form>
-    <div>
-    <p> Already Registered <a href="login.php"> login here </a></p></div>
-    </div>
-    <script>
-        
-    </script>
-</body>
+
+        // Validate Password
+        if (regPassword === "") {
+            errors.push({ id: "regPasswordErr", msg: "Password is required" });
+        } else if (regPassword.length < 8) {
+            errors.push({
+                id: "regPasswordErr",
+                msg: "Password must be at least 8 characters long",
+            });
+        } else {
+            const passStrength =
+                /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+            if (!passStrength.test(regPassword)) {
+                errors.push({
+                    id: "regPasswordErr",
+                    msg: "Password must include uppercase, lowercase, digit, and special character",
+                });
+            }
+        }
+
+        // Validate Confirm Password
+        if (confirmPassword === "") {
+            errors.push({
+                id: "confirmPasswordErr",
+                msg: "Please confirm the password",
+            });
+        } else if (regPassword !== confirmPassword) {
+            errors.push({
+                id: "confirmPasswordErr",
+                msg: "Passwords do not match",
+            });
+        }
+
+        // Display errors
+        if (errors.length > 0) {
+            errors.forEach((error) => {
+                document.getElementById(error.id).innerText = error.msg;
+            });
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+    }
+</script>
+
+
+
 </html>

@@ -1,0 +1,320 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    background-color: lightblue;
+}
+
+
+.header {
+    min-height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url('images/Tanker.jpg');
+   
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+
+nav {
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav img {
+    width: 150px;
+}
+
+.nav-links {
+    flex: 1;
+    text-align: right;
+}
+
+.nav-links ul li {
+    list-style: none;
+    display: inline-block; /* Ensure horizontal layout */
+    padding: 8px 12px;
+    position: relative;
+}
+
+
+
+.nav-links ul li a {
+    text-decoration: none;
+    color: #fff; 
+    font-size: 16px;
+    
+}
+
+.nav-links ul li ::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #f44336;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+
+.nav-links ul li :hover::after {
+    width: 100%;
+}
+.text-box {
+    width: 90%;               
+    color: #fff;              
+    position: absolute;       
+    top: 50%;                 
+    left: 50%;               
+    transform: translate(-50%, -50%);
+    text-align: center;       
+}
+.text-box h1{
+    font-size: 62px;
+}
+
+.text-box p{
+margin: 10px 0 40px;
+font-size: 14px;
+color:#fff;
+
+}
+
+.btn{
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 12px 34px;
+    font-size:13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+
+}
+ 
+.btn:hover{
+    border:1px solid #f44336;
+    background: #f44336;
+    transition: 1s;
+}
+@media(max-width: 700px){
+    .text-box h1{
+        font-size:20px;
+    }
+    .nav-links ul li{
+        display: block;
+    }
+    .nav-links{
+        position: absolute;
+        background: #f44336;
+        height:100vh;
+        width: 200px;
+        top:0;
+        right:0;
+        text-align: left;
+        z-index:2;
+    }
+}
+/* our dealers aaile ko lagi narakhne we'll add in 6th sem */
+/* .our-dealers{
+    width: 80%;
+    margin:auto;
+    text-align: center;
+    padding-top: 100px;
+}
+h1{
+    font-size: 36px;
+    font-weight: 600;
+}
+p{
+    color:#777;
+    font-size: 14px;
+    font-weight: 300;
+    line-height:22px;
+    padding:10px;
+}
+.row{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+  
+}
+.dealer-col{
+    flex-basis: 24%;
+    background: #f1c6ed;
+    border-radius: 10px;
+    margin-bottom: -2%;
+    padding:20px 12px ;
+    box-sizing: border-box;
+    transition:0.5s;
+} 
+
+.hidden-row {
+    display: none;
+  }
+
+  .show-more-btn {
+    display: block;
+    margin: 30px auto;
+    padding: 10px 20px;
+    background-color: rgb(35, 142, 236);
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    
+  }
+
+  .show-more-btn:hover {
+    background-color: rgb(34,194,34);
+  }
+
+ 
+h3{
+    text-align: center;
+    font-weight: 600;
+    margin: 10px 0; 
+}
+.dealer-col:hover{
+    box-shadow: 0 0 20px 0px rgba(0,0,0,0.2);
+}  */
+
+
+
+/* 
+ @media(max-width: 700px){
+    .row{
+        
+        flex-direction: column;
+    }
+    }
+  */
+
+
+
+  .services{
+    
+    width:80%;
+    margin:auto;
+    text-align: center;
+    padding-top: 100px;
+
+ }
+
+ .services-col{
+    flex-basis: 31%;
+    border-radius: 10px;
+    margin-bottom: 5%;
+    text-align: left;
+ }
+ 
+ .services-col img{
+    width:100%;
+    border-radius: 10px;
+ }
+
+ .services-col p{
+    padding: 0;
+ }
+
+ .services-col h3{
+    margin-top: 16px;
+    margin-bottom: 15px;
+    text-align: left;
+ } 
+
+ /* Container for the services section */
+.services {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+}
+
+/* Flex container for the service columns (this was missing) */
+.row {
+    display: flex;                  /* Enable flexbox layout */
+    justify-content: space-between; /* Distribute columns evenly */
+    flex-wrap: wrap;                /* Allow columns to wrap if needed (for small screens) */
+    gap: 20px;                      /* Add space between columns */
+}
+
+/* Style for each service column */
+.services-col {
+    flex-basis: 31%;                /* Each column takes up roughly 31% of the container width */
+    border-radius: 10px;
+    margin-bottom: 5%;              /* Space at the bottom of each column */
+    text-align: left;
+}
+
+/* Style for the images inside the columns */
+.services-col img {
+    width: 100%;                    /* Make images fill the width of their container */
+    border-radius: 10px;
+}
+
+/* Style for paragraph text inside the columns */
+.services-col p {
+    padding: 0;
+}
+
+/* Style for the headings inside the columns */
+.services-col h3 {
+    margin-top: 16px;
+    margin-bottom: 15px;
+    text-align: left;               /* Align headings to the left */
+}
+
+/* Responsive Design: Stack columns on smaller screens */
+@media screen and (max-width: 768px) {
+    .services-col {
+        flex-basis: 100%; /* Columns take up full width on smaller screens */
+    }
+}
+
+
+ .call{
+    margin:100px auto;
+    width:80%;
+    background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url('images/contact.jpg');
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+    text-align: center;
+    padding: 100px 0;
+}
+.call h1{
+    color: #fff;
+    margin-bottom: 40px;
+    padding: 0;
+
+}
+@media(max-width:700px){
+    .call h1{
+        font-size: 24px;
+    }
+}
+
+
+.footer{
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+
+}
+
+.footer h4{
+    margin-bottom:25px;
+    margin-top: 20px;
+    font-weight:600;
+
+}
