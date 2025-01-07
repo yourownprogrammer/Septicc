@@ -1,16 +1,15 @@
 <?php
-// Start the session at the top of the script
 session_start();
+?>
 
-if (isset($_POST["login"])) { // Ensure the "login" name matches the submit button in the form
-    // Collect form inputs
+ 
+
+ <?php
+if (isset($_POST["login"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
-    
-    // Include the database connection file
     require_once "database.php";
 
-    // Prepare the SQL statement to prevent SQL injection
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
@@ -18,19 +17,18 @@ if (isset($_POST["login"])) { // Ensure the "login" name matches the submit butt
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    // Check if the user exists in the database
     if ($user) {
-        // Verify the provided password against the hashed password in the database
         if (password_verify($password, $user["password"])) {
-            // Handle login based on user type
+            session_start();
             if ($user['user_type'] == 'admin') {
-                $_SESSION['admin_name'] = $user['name']; // Store admin name in the session
-                header("Location: Admindash.php"); // Redirect to admin dashboard
-            } elseif ($user['user_type'] == 'user') {
-                $_SESSION['user'] = $user['email']; // Store user email in the session
-                header("Location: reserve.php"); // Redirect to reserve page
+                $_SESSION['admin_name'] = $user['name'];
+                header("Location: Admindash.php");
+            } else if ($user['user_type'] == 'user') {
+                // $_SESSION['user_name'] = $user['name'];
+                $_SESSION['user'] = $user['email'];
+                header("Location:reserve.php");
             }
-            exit(); // Stop further script execution after redirect
+            exit();
         } else {
             $error = "Incorrect password!";
         }
@@ -39,6 +37,9 @@ if (isset($_POST["login"])) { // Ensure the "login" name matches the submit butt
     }
 }
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,10 +52,10 @@ if (isset($_POST["login"])) { // Ensure the "login" name matches the submit butt
     <div class="container">
         <form action="loginn.php" method="post">
             <div class="form-group">
-                <input type="email" name="email" placeholder="Enter email" required>
+                <input type="email" name="email" placeholder="Enter email"  value="<?php echo isset($_GET['email']) ? htmlspecialchars($_GET['email']) : ''; ?>">
             </div>
             <div class="form-group">
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password">
             </div>
             <div class="form-group">
                 <input type="submit" value="Login" name="login"> <!-- Ensure the name matches PHP logic -->

@@ -100,9 +100,10 @@
      <div class="sidebar">
     <h2>Admin Panel</h2>
     <ul>
-      <li><a href="#dashboard">Dashboard</a></li>
-      <li><a href="#user-profile">User Profile</a></li>
-      <li><a href="#notifications">Notifications</a></li>
+      <li><a href="">Dashboard</a></li>
+      <li><a href="users.php">User Profile</a></li>
+      <li><a href="reservations.php">Reservations</a></li>
+      <li><a href="notifications">Notifications</a></li>
       <li><a href="logout.php">logout</a></li>
     </ul>
   </div>

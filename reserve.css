@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.RESERVE {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.RESERVE h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.RESERVE .res {
+    margin-bottom: 15px;
+}
+
+.RESERVE label {
+    font-size: 14px;
+    color: #555;
+    display: inline-block;
+    width: 100%; 
+}
+
+.RESERVE input,
+.RESERVE select {
+    width: 100%; 
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+
+.address-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.address-row .res {
+    flex: 1; 
+}
+
+
+.select-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.select-row .res {
+    flex: 1; 
+}
+
+
+.RESERVE button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.RESERVE button:hover {
+    background-color: #45a049;
+}
+
+
+.RESERVE input:focus,
+.RESERVE select:focus {
+    outline: none;
+    border-color: #4CAF50; 
+    box-shadow: 0 0 3px rgba(76, 175, 80, 0.5); 
+}
+
+
+.RESERVE select {
+    width: 100%; 
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+
+.RESERVE select:focus {
+    outline: none;
+    border-color: #4CAF50; 
+    box-shadow: 0 0 3px rgba(76, 175, 80, 0.5);
+}

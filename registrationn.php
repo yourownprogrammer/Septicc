@@ -1,6 +1,10 @@
 <?php
-session_start();
+session_start(); // Start session at the top
+
+require_once "database.php"; // Include the database connection
+
 $emailErr = "";
+$error = "";
 
 if (isset($_POST["submit"])) {
     $fullname = $_POST["fullname"];
@@ -8,42 +12,50 @@ if (isset($_POST["submit"])) {
     $password = $_POST["password"];
     $passwordRepeat = $_POST["repeat_password"];
 
+    // Check if passwords match
     if ($password !== $passwordRepeat) {
         $error = "Passwords do not match!";
     } else {
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT); // Encrypt password
-
-        require_once "database.php";
-
         // Check if the email already exists
         $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $conn->prepare($sql);
+        if (!$stmt) {
+            die("Error preparing statement: " . $conn->error);
+        }
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
+            // Email already exists
             $emailErr = "Email already exists!";
         } else {
-            // Insert new user
+            // Hash the password before storing
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insert the new user into the database
             $sql = "INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            if ($stmt) {
-                $stmt->bind_param("sss", $fullname, $email, $passwordHash);
-                if ($stmt->execute()) {
-                    header("Location: loginn.php"); // Redirect to login
-                    exit();
-                } else {
-                    $error = "Error: Could not register user.";
-                }
+            if (!$stmt) {
+                die("Error preparing statement: " . $conn->error);
+            }
+            $stmt->bind_param("sss", $fullname, $email, $hashedPassword);
+
+            if ($stmt->execute()) {
+                // Save user details in session
+                $_SESSION['user_name'] = $fullname;
+                $_SESSION['user_email'] = $email;
+
+                // Redirect to login with email prefilled
+                header("Location: loginn.php?email=" . urlencode($email));
+                exit();
             } else {
-                $error = "Error: Failed to prepare the query.";
+                $error = "Error: Could not register user.";
             }
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +93,6 @@ if (isset($_POST["submit"])) {
         </form>
         <p><?php echo $emailErr; ?></p>
         <div>
-            <!-- <p>Already Registered? <a href="loginn.php">Login here</a></p> -->
         </div>
     </div>
    
@@ -117,22 +128,22 @@ if (isset($_POST["submit"])) {
                 }
             }
 
-            // Validate Email
-            if (regEmail === "") {
-                errors.push({
-                    id: "emailErr",
-                    msg: "Email is required"
-                });
-            } else {
-                var mailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$/;
-                if (!(regEmail.match(mailFormat))) {
-                    errors.push({
-                        id: "emailErr",
-                        msg: "Enter a valid email"
-                    });
-                }
-            }
+if (regEmail === "") {
+        errors.push({
+            id: "emailErr",
+            msg: "Email is required"
+        });
+    } else {
+        // Regex: Allow only '.' and '@' as special characters
+        var mailFormat = /^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
 
+        if (!regEmail.match(mailFormat)) {
+            errors.push({
+                id: "emailErr",
+                msg: "Enter a valid email (eg:Bairstow51@gmail.com)"
+            });
+        }
+    }
             // Validate Password
             if (regPassword === "") {
                 errors.push({

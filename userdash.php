@@ -52,7 +52,7 @@ if ($result->num_rows > 0) {
 
 
       <div class="section">
-        <h3>Personal Information <span><a href="#">Edit</a></span></h3>
+        <h3>Personal Information <span><a href="editpersonal.php">Edit</a></span></h3>
         <p><span class="label">Name:</span> <?php echo htmlspecialchars($userDetails["full_name"]); ?></p>
         <p><span class="label">Email:</span> <?php echo htmlspecialchars($userDetails["email"]); ?></p>
         
@@ -71,7 +71,7 @@ if ($result->num_rows > 0) {
         <div class="card">
           <h2>Activity Overview</h2>
           
-          <a href="#">Change reserve details</a><br>
+          <a href="personaldetails.php">Change reserve details</a><br>
           <a href="#">Track your order</a><br>
           <a href="#">Order History</a>
           

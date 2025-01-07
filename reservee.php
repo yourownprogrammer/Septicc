@@ -131,7 +131,7 @@
 
     <div class="RESERVE">
         <h2>Reserve Now</h2>
-        <form action="reservee.php" method="POST" id="reservationForm" onsubmit="return validateForm()">
+        <form action="reserve.php" method="POST" id="reservationForm" onsubmit="return validateForm()">
 
             
         <div class="address-row">
@@ -200,13 +200,13 @@
 
                 <div class="address-row">
       <div class="res">
-    <label for="delivery-time">Delivery Day</label>
+    <label for="delivery-day">Which day do you like it delivered?</label>
     <input type="date" 
-           id="delivery-time" 
-           name="delivery-time"
+           id="delivery-day" 
+           name="delivery-day"
            
-           placeholder="Select delivery time">
-    <div id="deliveryTimeError" style="color: red;"></div>
+           placeholder="Select delivery day">
+    <div id="deliveryDayError" style="color: red;"></div>
 </div>
 
 <div class="res">
@@ -257,16 +257,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $poleNumber = $conn->real_escape_string($_POST['pole']);
     $houseNumber = $conn->real_escape_string($_POST['house']);
     $serviceType = $conn->real_escape_string($_POST['type']);
-    $deliveryTime = $conn->real_escape_string($_POST['Test_DatetimeLocal']);
+    $deliveryDay = $conn->real_escape_string($_POST['delivery-day']);
+    $deliveryTime = $conn->real_escape_string($_POST['delivery-time']);
 
     // Validate required fields
-    if (empty($name) || empty($email) || empty($phone) || empty($street) || empty($city) || empty($poleNumber) || empty($houseNumber) || empty($serviceType) || empty($deliveryTime)) {
-        die("Error: All fields are required.");
+    if (empty($name) || empty($email) || empty($phone) || empty($street) || empty($city) || empty($poleNumber) || empty($houseNumber) || empty($serviceType) || empty($deliveryDay) || empty($deliveryTime)) {
+        die("All fields are required.");
     }
 
     // Insert data into the reservations table
-    $sql = "INSERT INTO reservations (name, email, phone, street, city, pole_number, house_number, service_type, delivery_time)
-            VALUES ('$name', '$email', '$phone', '$street', '$city', '$poleNumber', '$houseNumber', '$serviceType', '$deliveryTime')";
+    $sql = "INSERT INTO reservations (name, email, phone, street, city, pole_number, house_number, service_type, delivery_day, delivery_time)
+            VALUES ('$name', '$email', '$phone', '$street', '$city', '$poleNumber', '$houseNumber', '$serviceType', '$deliveryDay','$deliveryTime')";
 
     // Execute the query and check for success
  //   if ($conn->query($sql) === TRUE) {  
@@ -313,14 +314,15 @@ function validateForm() {
     pole: [],
     house: [],
     type: [],
+    deliveryDay: [],
     deliveryTime: []
   };
 
  
   let regName = document.getElementById('name').value;
   if (regName === "") {
-    errors.push('Name is required in this field, enter it.');
-    errorMessages.name.push('Name is required in this field, enter it');
+    errors.push('Name is required ');
+    errorMessages.name.push('Name is required ');
   } else {
     if (regName.length < 5) {
       errors.push('Name must be at least 5 characters long');
@@ -337,7 +339,7 @@ function validateForm() {
   
   let email = document.getElementById('email').value;
   if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/.test(email)) {
-    errorMessages.email.push('Please enter a valid email address.');
+    errorMessages.email.push('Enter a valid email .');
   }
 
   // Validate Phone Number
@@ -377,8 +379,44 @@ function validateForm() {
   }
 
   // Validate Delivery Time
+  let deliveryDate = document.getElementById('delivery-day').value;
 
-  let deliveryTime = document.getElementById('delivery-time').value;
+
+if (!deliveryDate) {
+    // Check if the date is empty
+    errorMessages.deliveryDay.push('Please enter a delivery date.');
+} else {
+    const selectedDate = new Date(deliveryDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize to start of the day
+
+    if (selectedDate < today) {
+        // Check if the date is in the past
+        errorMessages.deliveryDay.push('The delivery date must be today or future date.');
+    }
+}
+
+// if (!deliveryTime) {
+//     errorMessages.deliveryTime.push('Please enter a delivery time.');
+// } else if (deliveryTime < '06:00' || deliveryTime > '18:00') {
+//     errorMessages.deliveryTime.push('Service is available between 6:00 AM and 6:00 PM.');
+// }
+let deliveryTime = document.getElementById('delivery-time').value;
+
+if (!deliveryTime) {
+    errorMessages.deliveryTime.push('Please enter a delivery time.');
+} else {
+    const [hours] = deliveryTime.split(':').map(Number); // Get just the hours
+
+    if (hours < 6 || hours > 18) {
+        errorMessages.deliveryTime.push('Service is available between 6:00 AM and 6:00 PM.');
+    }
+}
+
+
+
+
+          
   
 
   // Display Errors
@@ -397,3 +435,18 @@ function validateForm() {
 
 </body>
 </html>
+
+<!-- // $(function(){
+//     var dtToday = new Date();
+ 
+//     var month = dtToday.getMonth() + 1;
+//     var day = dtToday.getDate();
+//     var year = dtToday.getFullYear();
+//     if(month < 10)
+//         month = '0' + month.toString();
+//     if(day < 10)
+//      day = '0' + day.toString();
+//     var maxDate = year + '-' + month + '-' + day;
+//     $('#delivery-day').attr('min', maxDate);
+//     console.log("this is delivery")
+// }); -->

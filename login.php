@@ -52,10 +52,10 @@ if (isset($_POST["login"])) {
     <div class="container">
         <form action="login.php" method="post">
             <div class="form-group">
-                <input type="email" name="email" placeholder="Enter email" required>
+                <input type="email" name="email" placeholder="Enter email" value="<?php echo isset($_GET['email']) ? htmlspecialchars($_GET['email']) : ''; ?>">
             </div>
             <div class="form-group">
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password" >
             </div>
             <div class="form-group">
                 <input type="submit" value="Login" name="login">
